@@ -1,1 +1,551 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Allane Gonzaga Fotografia</title>
+
+  <meta name="description" content="Allane Gonzaga Fotografia — Transformando momentos em memórias eternas. Agende seu ensaio pelo WhatsApp." />
+
+  <style>
+    :root{
+      --bg:#fafafa;
+      --text:#222;
+      --muted:rgba(0,0,0,.65);
+      --card:#fff;
+      --shadow:0 10px 30px rgba(0,0,0,.08);
+      --radius:14px;
+      --btn:#000;
+      --wa:#25D366;
+      --ig:#E1306C;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      font-family: Arial, Helvetica, sans-serif;
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.5;
+    }
+
+    /* HERO com foto anexada (sem cortar a cabeça) */
+    header{
+      min-height: 72vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding: 90px 20px;
+
+      background:
+        linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)),
+        url('assets/allane.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+
+      /* aqui está a correção principal */
+      background-position: center top;
+
+      color:#fff;
+      position:relative;
+    }
+
+    header h1{ margin:0; font-size:44px; letter-spacing:.2px; }
+    header p{ margin:10px 0 0 0; font-size:18px; opacity:.92; }
+
+    @media (max-width: 720px){
+      header{
+        min-height: 64vh;
+        padding: 70px 16px;
+        background-position: center top; /* mantém topo no mobile */
+      }
+      header h1{ font-size:32px; }
+      header p{ font-size:16px; }
+    }
+
+    .cta{ margin-top:22px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+    button{
+      background:var(--btn);
+      color:#fff;
+      border:none;
+      padding:12px 20px;
+      border-radius:12px;
+      cursor:pointer;
+      font-size:16px;
+      transition: transform .12s ease, opacity .2s ease, box-shadow .2s ease;
+      box-shadow: 0 10px 25px rgba(0,0,0,.20);
+    }
+    button:hover{ opacity:.9; transform: translateY(-1px); }
+    button:active{ transform: translateY(0); }
+
+    .container{
+      max-width:1150px;
+      margin:auto;
+      padding:60px 20px;
+    }
+
+    h2{ margin:0 0 12px 0; }
+    .muted{ color: var(--muted); margin:0 0 18px 0; }
+
+    /* PORTFÓLIO */
+    .gallery{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap:15px;
+    }
+    .gallery img{
+      width:100%;
+      height:230px;
+      object-fit:cover;
+      border-radius:14px;
+      background:#eee;
+      transition: transform .25s ease;
+    }
+    .gallery img:hover{ transform: scale(1.03); }
+
+    /* PACOTES */
+    .packages{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap:22px;
+      margin-top:18px;
+    }
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:24px;
+      box-shadow:var(--shadow);
+      text-align:center;
+      border: 1px solid rgba(0,0,0,.04);
+    }
+    .card h3{ margin:0 0 10px 0; }
+    .card strong{ font-size:18px; }
+
+    /* AGENDA */
+    .agenda{
+      margin-top:10px;
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap:12px;
+    }
+    .slot{
+      background:var(--card);
+      border-radius:14px;
+      padding:14px;
+      box-shadow: 0 8px 22px rgba(0,0,0,.06);
+      border: 1px solid rgba(0,0,0,.04);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .slot b{ font-size:15px; }
+    .slot small{ color:var(--muted); }
+
+    .slot button{
+      box-shadow:none;
+      padding:10px 14px;
+      border-radius:12px;
+      font-size:14px;
+      white-space:nowrap;
+    }
+
+    .selected{
+      outline: 2px solid rgba(0,0,0,.12);
+      box-shadow: 0 10px 30px rgba(0,0,0,.10);
+    }
+
+    /* HORÁRIOS */
+    .times{
+      margin-top:14px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .time-btn{
+      box-shadow:none;
+      background:#111;
+      padding:10px 14px;
+      font-size:14px;
+      border-radius:12px;
+    }
+    .time-btn[disabled]{
+      opacity:.45;
+      cursor:not-allowed;
+      transform:none;
+    }
+
+    /* FORM */
+    .booking{
+      background:var(--card);
+      padding:28px;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      margin-top:40px;
+      border: 1px solid rgba(0,0,0,.04);
+    }
+    label{ font-weight:700; font-size:13px; }
+    input, select{
+      width:100%;
+      padding:12px;
+      margin-top:8px;
+      margin-bottom:16px;
+      border-radius:12px;
+      border:1px solid #ddd;
+      outline:none;
+      background:#fff;
+    }
+    input:focus, select:focus{ border-color:#bbb; }
+
+    .whatsapp{
+      background:var(--wa);
+      width:100%;
+      box-shadow: 0 10px 25px rgba(37,211,102,.25);
+    }
+
+    /* INSTAGRAM FEED */
+    .insta-wrap{
+      margin-top:70px;
+      text-align:center;
+    }
+    .insta-embed{
+      border:none;
+      width:100%;
+      height:560px;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      background:#fff;
+    }
+
+    /* FLOAT BUTTONS */
+    .float-area{
+      position:fixed;
+      bottom:18px;
+      right:18px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      z-index:999;
+    }
+    .fab{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+      color:#fff;
+      padding:12px 14px;
+      border-radius:999px;
+      font-size:14px;
+      box-shadow: 0 10px 25px rgba(0,0,0,.20);
+      transition: transform .12s ease, opacity .2s ease;
+      backdrop-filter: blur(6px);
+    }
+    .fab:hover{ transform: translateY(-2px); opacity:.95; }
+    .fab-wa{ background: var(--wa); }
+    .fab-ig{ background: var(--ig); }
+
+    footer{
+      text-align:center;
+      padding:40px 14px;
+      font-size:14px;
+      opacity:.65;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div>
+    <h1>Allane Gonzaga Fotografia</h1>
+    <p>Transformando momentos em memórias eternas</p>
+    <div class="cta">
+      <button onclick="document.getElementById('agendamento').scrollIntoView({behavior:'smooth'})">
+        Agendar Ensaio
+      </button>
+      <button onclick="document.getElementById('ultimos-ensaios').scrollIntoView({behavior:'smooth'})">
+        Ver Últimos Ensaios
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <h2>Portfólio</h2>
+  <p class="muted">Confira alguns registros para sentir o estilo do ensaio.</p>
+
+  <div class="gallery">
+    <img loading="lazy" alt="Ensaio fotográfico 1" src="https://images.unsplash.com/photo-1492724441997-5dc865305da7?q=80&w=900&auto=format&fit=crop">
+    <img loading="lazy" alt="Ensaio fotográfico 2" src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=900&auto=format&fit=crop">
+    <img loading="lazy" alt="Ensaio fotográfico 3" src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=900&auto=format&fit=crop">
+    <img loading="lazy" alt="Ensaio fotográfico 4" src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=900&auto=format&fit=crop">
+    <img loading="lazy" alt="Ensaio fotográfico 5" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=900&auto=format&fit=crop">
+    <img loading="lazy" alt="Ensaio fotográfico 6" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=900&auto=format&fit=crop">
+  </div>
+
+  <h2 style="margin-top:60px">Escolha seu pacote</h2>
+  <p class="muted">Selecione um pacote e finalize seu agendamento em poucos cliques.</p>
+
+  <div class="packages">
+    <div class="card">
+      <h3>Ensaio Essencial</h3>
+      <p>30 minutos<br>10 fotos editadas<br>1 cenário</p>
+      <strong>R$180</strong><br><br>
+      <button onclick="selectPackage('Ensaio Essencial - R$180')">Selecionar</button>
+    </div>
+
+    <div class="card">
+      <h3>Ensaio Premium</h3>
+      <p>1 hora<br>25 fotos editadas<br>2 cenários</p>
+      <strong>R$350</strong><br><br>
+      <button onclick="selectPackage('Ensaio Premium - R$350')">Selecionar</button>
+    </div>
+
+    <div class="card">
+      <h3>Ensaio Luxo</h3>
+      <p>2 horas<br>50 fotos editadas<br>3 cenários</p>
+      <strong>R$600</strong><br><br>
+      <button onclick="selectPackage('Ensaio Luxo - R$600')">Selecionar</button>
+    </div>
+  </div>
+
+  <h2 style="margin-top:60px">Agenda (datas disponíveis)</h2>
+  <p class="muted">A fotógrafa atende apenas nos dias de folga da escala 5x1. Clique na data e depois escolha o horário.</p>
+
+  <div class="agenda" id="agenda"></div>
+
+  <div id="timesArea" style="margin-top:18px; display:none;">
+    <h3 style="margin:0 0 10px 0;">Horários disponíveis</h3>
+    <div class="times" id="times"></div>
+    <p class="muted" style="margin-top:10px;">Ao selecionar o horário, ele será preenchido automaticamente no formulário.</p>
+  </div>
+
+  <div id="agendamento" class="booking">
+    <h2>Agendar Ensaio</h2>
+
+    <label for="package">Pacote escolhido</label>
+    <input id="package" readonly placeholder="Selecione um pacote acima">
+
+    <label for="name">Seu nome</label>
+    <input id="name" placeholder="Digite seu nome" autocomplete="name">
+
+    <label for="phone">WhatsApp</label>
+    <input id="phone" placeholder="(DDD) número" inputmode="tel" autocomplete="tel">
+
+    <label for="type">Tipo de ensaio</label>
+    <select id="type">
+      <option>Casal</option>
+      <option>Gestante</option>
+      <option>Família</option>
+      <option>Feminino</option>
+      <option>Infantil</option>
+    </select>
+
+    <label for="date">Data desejada</label>
+    <input type="date" id="date">
+
+    <label for="time">Horário</label>
+    <select id="time">
+      <option value="">Selecione um horário</option>
+      <option>09:00</option>
+      <option>11:00</option>
+      <option>14:00</option>
+      <option>16:00</option>
+      <option>18:00</option>
+    </select>
+
+    <button class="whatsapp" onclick="sendWhatsApp()">Enviar agendamento pelo WhatsApp</button>
+    <p class="muted" style="margin-top:12px;font-size:13px">
+      Ao enviar, você será redirecionado para o WhatsApp com a mensagem pronta.
+    </p>
+  </div>
+
+  <!-- ÚLTIMOS ENSAIOS (INSTAGRAM) -->
+  <div class="insta-wrap" id="ultimos-ensaios">
+    <h2>Últimos Ensaios</h2>
+    <p class="muted">Confira alguns dos nossos trabalhos mais recentes (atualiza conforme ela posta no Instagram).</p>
+
+    <!--
+      ✅ AQUI É ONDE ENTRA O WIDGET REAL DO INSTAGRAM
+      Para ficar automático + grid + clicável, você precisa gerar um embed no SnapWidget/Elfsight etc.
+      Assim que você me mandar o LINK/IFRAME do widget correto do perfil @allanegonzagafotografia,
+      eu coloco certinho aqui.
+
+      Por enquanto deixei um placeholder (exemplo). Troque o SRC pelo seu embed oficial.
+    -->
+    <iframe
+      class="insta-embed"
+      src="https://snapwidget.com/embed/1030824"
+      loading="lazy"
+      referrerpolicy="no-referrer"
+      title="Feed do Instagram (widget)">
+    </iframe>
+  </div>
+
+</div>
+
+<div class="float-area">
+  <a class="fab fab-wa" href="https://wa.me/5566999138775" target="_blank" rel="noopener noreferrer">
+    WhatsApp
+  </a>
+  <a class="fab fab-ig" href="https://www.instagram.com/allanegonzagafotografia" target="_blank" rel="noopener noreferrer">
+    Instagram
+  </a>
+</div>
+
+<footer>
+  © Allane Gonzaga Fotografia
+</footer>
+
+<script>
+  const WHATSAPP_NUMBER = '5566999138775';
+
+  // ✅ EDITÁVEL FACILMENTE (escala 5x1 -> só folgas)
+  const availableDates = [
+    "2026-03-14",
+    "2026-03-20",
+    "2026-03-26"
+  ];
+
+  const timeSlots = ["09:00","11:00","14:00","16:00","18:00"];
+
+  let selectedDate = "";
+  let selectedTime = "";
+
+  function formatBR(yyyy_mm_dd){
+    const [y,m,d] = yyyy_mm_dd.split("-");
+    return `${d}/${m}/${y}`;
+  }
+
+  function renderAgenda(){
+    const agenda = document.getElementById("agenda");
+    agenda.innerHTML = "";
+
+    availableDates.forEach(dateStr => {
+      const item = document.createElement("div");
+      item.className = "slot";
+      item.setAttribute("data-date", dateStr);
+
+      item.innerHTML = `
+        <div>
+          <b>${formatBR(dateStr)}</b><br>
+          <small>Disponível</small>
+        </div>
+        <button type="button">Escolher</button>
+      `;
+
+      item.querySelector("button").addEventListener("click", () => chooseDate(dateStr));
+      agenda.appendChild(item);
+    });
+  }
+
+  function chooseDate(dateStr){
+    selectedDate = dateStr;
+    selectedTime = "";
+
+    // destaca selecionado
+    document.querySelectorAll(".slot").forEach(el => {
+      el.classList.toggle("selected", el.getAttribute("data-date") === dateStr);
+    });
+
+    // preenche campo do form
+    document.getElementById("date").value = dateStr;
+
+    // limpa horário do form
+    document.getElementById("time").value = "";
+
+    // renderiza horários e mostra
+    renderTimes();
+    document.getElementById("timesArea").style.display = "block";
+
+    // leva pra seção de horários
+    document.getElementById("timesArea").scrollIntoView({behavior:"smooth"});
+  }
+
+  function renderTimes(){
+    const times = document.getElementById("times");
+    times.innerHTML = "";
+
+    timeSlots.forEach(t => {
+      const btn = document.createElement("button");
+      btn.className = "time-btn";
+      btn.type = "button";
+      btn.textContent = t;
+
+      btn.addEventListener("click", () => chooseTime(t));
+      times.appendChild(btn);
+    });
+  }
+
+  function chooseTime(t){
+    if(!selectedDate){
+      alert("Selecione uma data primeiro.");
+      return;
+    }
+    selectedTime = t;
+
+    // destaca horário selecionado
+    document.querySelectorAll(".time-btn").forEach(b => {
+      b.classList.toggle("selected", b.textContent === t);
+    });
+
+    // preenche select do form
+    document.getElementById("time").value = t;
+
+    // leva pro formulário
+    document.getElementById("agendamento").scrollIntoView({behavior:"smooth"});
+  }
+
+  function selectPackage(pkg){
+    document.getElementById('package').value = pkg;
+    document.getElementById('agendamento').scrollIntoView({behavior:'smooth'});
+  }
+
+  function sendWhatsApp(){
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const pkg = document.getElementById('package').value.trim();
+    const type = document.getElementById('type').value;
+    const date = document.getElementById('date').value;
+    const time = document.getElementById('time').value;
+
+    if(!pkg){
+      alert('Selecione um pacote antes de enviar.');
+      return;
+    }
+    if(!name || !phone){
+      alert('Preencha seu nome e WhatsApp.');
+      return;
+    }
+    if(!date){
+      alert('Selecione uma data disponível.');
+      return;
+    }
+    if(!time){
+      alert('Selecione um horário.');
+      return;
+    }
+
+    const message =
+`Olá! Quero agendar um ensaio.
+
+Nome: ${name}
+WhatsApp: ${phone}
+Pacote: ${pkg}
+Tipo de ensaio: ${type}
+Data: ${date}
+Horário: ${time}`;
+
+    const encoded = encodeURIComponent(message);
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`,'_blank');
+  }
+
+  renderAgenda();
+</script>
+
+</body>
+</html>
 
