@@ -651,11 +651,8 @@
     <label for="time">Horário</label>
     <select id="time">
       <option value="">Selecione um horário</option>
-      <option>09:00</option>
-      <option>11:00</option>
-      <option>14:00</option>
+      <option>13:00</option>
       <option>16:00</option>
-      <option>18:00</option>
     </select>
 
     <button class="whatsapp" onclick="sendWhatsApp()">Enviar agendamento pelo WhatsApp</button>
@@ -697,12 +694,10 @@
 
   // ✅ DATAS DISPONÍVEIS (06/03 e depois +6 dias)
   const availableDates = [
-    "2026-03-06",
     "2026-03-12",
     "2026-03-18",
     "2026-03-24",
     "2026-03-30",
-    "2026-04-05"
   ];
 
   const timeSlots = ["09:00","11:00","14:00","16:00","18:00"];
@@ -818,6 +813,7 @@ Horário: ${time}`;
 
 </body>
 </html>
+
 
 
 
